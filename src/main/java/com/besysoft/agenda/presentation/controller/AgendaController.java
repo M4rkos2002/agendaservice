@@ -58,7 +58,7 @@ public class AgendaController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<?> getAllContactsByState(@PathVariable("id") Long agendaId, @RequestParam("state")ContactState state){
+    public ResponseEntity<?> getAllContactsByState(@PathVariable("id") Long agendaId, @RequestParam(name="state")ContactState state){
         try{
             List<ContactDTO> contacts = agendaService.getAllContacts(agendaId, state);
             return new ResponseEntity<>(contacts, HttpStatus.OK);

@@ -63,12 +63,12 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAll(@RequestParam(required = false,value ="ageFrom") Integer ageFrom,
-                                    @RequestParam(required = false,value="ageTo") Integer ageTo,
-                                    @RequestParam(required = false,value="name") String name,
-                                    @RequestParam(required = false,value="cities") List<Long> cities,
-                                    @RequestParam(value="page", defaultValue= "0" ) int page,
-                                    @RequestParam(value="size", defaultValue="10") int size){
+    public ResponseEntity<?> getAll(@RequestParam(required = false,name ="ageFrom") Integer ageFrom,
+                                    @RequestParam(required = false,name="ageTo") Integer ageTo,
+                                    @RequestParam(required = false,name="name") String name,
+                                    @RequestParam(required = false,name="cities") List<Long> cities,
+                                    @RequestParam(name="page", defaultValue= "0" ) int page,
+                                    @RequestParam(name="size", defaultValue="10") int size){
         PersonFilter filter = new PersonFilter(ageFrom,ageTo,name,cities);
         Pageable pages = PageRequest.of(page, size);
         try {
@@ -81,7 +81,7 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> setAsOpportunity(@PathVariable("id")Long personId, @RequestParam("agenda")Long agendaId){
+    public ResponseEntity<?> setAsOpportunity(@PathVariable("id")Long personId, @RequestParam(name="agenda")Long agendaId){
         try{
             ContactDTO dto = personService.beOpportunity(personId, agendaId);
             return new ResponseEntity<>(dto, HttpStatus.OK);
